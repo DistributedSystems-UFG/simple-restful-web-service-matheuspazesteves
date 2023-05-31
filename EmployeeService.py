@@ -35,7 +35,7 @@ def getEmp(empId):
             return jsonify({'emp':usr})
         else:
             usr = 'Not found'
-    return jsonify({usr})
+    return usr
     # usr = [ emp for emp in empDB if (emp['id'] == empId) ] 
     
 

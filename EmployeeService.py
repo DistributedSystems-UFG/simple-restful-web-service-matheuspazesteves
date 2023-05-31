@@ -29,8 +29,15 @@ def getAllEmp():
 
 @app.route('/empdb/employee/<empId>',methods=['GET'])
 def getEmp(empId):
-    usr = [ emp for emp in empDB if (emp['id'] == empId) ] 
-    return jsonify({'emp':usr})
+    for emp in empDB:
+        if(emp['id'] == empId):
+            usr = emp;
+            return jsonify({'emp':usr})
+        else:
+            usr = 'Not found'
+    return jsonify({usr})
+    # usr = [ emp for emp in empDB if (emp['id'] == empId) ] 
+    
 
 
 @app.route('/empdb/employee/<empId>',methods=['PUT'])

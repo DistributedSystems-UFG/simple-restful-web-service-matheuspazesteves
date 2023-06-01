@@ -34,7 +34,7 @@ def getEmp(empId):
             usr = emp;
             return jsonify({'emp':usr})
         else:
-            usr = jsonify({'message':"No ids provided.",
+            usr = jsonify({'message':"id not found.",
                     'category':"error",
                     'status':404})
     return usr
@@ -53,6 +53,28 @@ def updateEmp(empId):
 
         if 'title' in request.json:
             em[0]['title'] = request.json['title']
+        
+        if 'salary' in request.json:
+            em[0]['salary'] = request.json['salary']
+    
+    else:
+        em = jsonify({'message':"id not found.",
+                    'category':"error",
+                    'status':404})
+
+    return jsonify(em)
+
+@app.route('/empdb/employee/<empId>/<empSal>',methods=['PUT'])
+def updateEmp(empId, empSal):
+
+    em = [ emp for emp in empDB if (emp['id'] == empId) ]
+
+    if len(em) > 0:
+        em[0]['salary'] = empSal;
+    else:
+        em = jsonify({'message':"id not found.",
+                    'category':"error",
+                    'status':404})
 
     return jsonify(em)
 
@@ -63,7 +85,8 @@ def createEmp():
     dat = {
     'id':request.json['id'],
     'name':request.json['name'],
-    'title':request.json['title']
+    'title':request.json['title'],
+    'salary':request.json['salary']
     }
     empDB.append(dat)
     return jsonify(dat)

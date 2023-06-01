@@ -80,6 +80,21 @@ def updateEmpSal(empId, empSal):
 
     return jsonify(em)
 
+@app.route('/empdb/employee/<empId>/<empSal>/<empTit>',methods=['PUT'])
+def updateEmpSalandTit(empId, empSal, empTit):
+
+    em = [ emp for emp in empDB if (emp['id'] == empId) ]
+
+    if len(em) > 0:
+        em[0]['salary'] = empSal;
+        em[0]['title'] = empTit;
+    else:
+        em = jsonify({'message':"id not found.",
+                    'category':"error",
+                    'status':404})
+
+    return jsonify(em)
+
 
 @app.route('/empdb/employee',methods=['POST'])
 def createEmp():

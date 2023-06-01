@@ -103,5 +103,13 @@ def deleteEmp(empId):
     else:
         return jsonify({'response':'Failure'})
 
+@app.route('/<path:path>')
+def catch_all(path):
+    # returns a 200 (not a 404) with the 
+    return jsonify({'message':"not found",
+                    'category':"error",
+                    'status':404});
+
+
 if __name__ == '__main__':
  app.run(host='0.0.0.0', port=5000)
